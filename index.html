@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мое Mini App</title>
+    <title>NeuroMarketing AI - Обучение ИИ</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * {
@@ -14,79 +14,298 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #000000);
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background: var(--tg-theme-bg-color, #0f0f23);
+            color: var(--tg-theme-text-color, #ffffff);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
             text-align: center;
-            max-width: 300px;
-            width: 100%;
+            position: relative;
+            overflow: hidden;
         }
         
-        h1 {
-            font-size: 24px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            font-size: 48px;
             margin-bottom: 10px;
-            color: var(--tg-theme-text-color, #000000);
+            animation: pulse 2s infinite;
         }
         
-        .user-info {
-            background: var(--tg-theme-secondary-bg-color, #f1f3f4);
-            padding: 15px;
-            border-radius: 12px;
-            margin: 20px 0;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .user-greeting {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
             font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        .button {
-            background: var(--tg-theme-button-color, #0088cc);
+        /* Main Content Blocks */
+        .content-block {
+            background: var(--tg-theme-secondary-bg-color, #1a1a2e);
+            margin: 20px;
+            padding: 25px 20px;
+            border-radius: 16px;
+            position: relative;
+            border: 1px solid var(--tg-theme-hint-color, rgba(255, 255, 255, 0.1));
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .block-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .content-block h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--tg-theme-text-color, #ffffff);
+        }
+        
+        .content-block p {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--tg-theme-button-color, #0088cc), #0077bb);
             color: var(--tg-theme-button-text-color, #ffffff);
             border: none;
             padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
-            margin: 10px 0;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
             width: 100%;
-            transition: opacity 0.2s;
+            text-align: center;
+            margin-top: 10px;
         }
         
-        .button:hover {
-            opacity: 0.8;
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
         
-        .emoji {
-            font-size: 48px;
-            margin-bottom: 20px;
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #e91e63, #ad1457);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+        }
+        
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+            padding: 20px;
+            background: var(--tg-theme-secondary-bg-color, #1a1a2e);
+            border-radius: 16px;
+            border: 1px solid var(--tg-theme-hint-color, rgba(255, 255, 255, 0.1));
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--tg-theme-button-color, #0088cc);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            opacity: 0.6;
+            border-top: 1px solid var(--tg-theme-hint-color, rgba(255, 255, 255, 0.1));
+            margin-top: 20px;
+        }
+        
+        /* Animations */
+        .animate-in {
+            animation: slideInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .animate-in:nth-child(2) { animation-delay: 0.1s; }
+        .animate-in:nth-child(3) { animation-delay: 0.2s; }
+        .animate-in:nth-child(4) { animation-delay: 0.3s; }
+        
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 360px) {
+            .hero {
+                padding: 30px 15px;
+            }
+            .hero h1 {
+                font-size: 24px;
+            }
+            .content-block {
+                margin: 15px 10px;
+                padding: 20px 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="emoji">🚀</div>
-        <h1>Привет из Mini App!</h1>
-        
-        <div class="user-info" id="userInfo">
-            Загрузка информации о пользователе...
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="logo">🤖</div>
+                <h1>NeuroMarketing AI</h1>
+                <p>Обучаем работе с ИИ для бизнеса и жизни</p>
+                <div class="user-greeting" id="userGreeting">
+                    👋 Добро пожаловать в мир искусственного интеллекта!
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <div class="stats animate-in">
+            <div class="stat">
+                <span class="stat-number">1000+</span>
+                <div class="stat-label">Студентов</div>
+            </div>
+            <div class="stat">
+                <span class="stat-number">50+</span>
+                <div class="stat-label">Курсов</div>
+            </div>
+            <div class="stat">
+                <span class="stat-number">24/7</span>
+                <div class="stat-label">Поддержка</div>
+            </div>
         </div>
-        
-        <button class="button" onclick="sendMessage()">
-            Отправить сообщение боту
-        </button>
-        
-        <button class="button" onclick="showAlert()">
-            Показать уведомление
-        </button>
-        
-        <button class="button" onclick="openLink()">
-            Открыть ссылку
-        </button>
+
+        <!-- Content Blocks -->
+        <div class="content-block animate-in">
+            <span class="block-icon">🎯</span>
+            <h2>Бесплатный вебинар по ИИ</h2>
+            <p>Узнайте, как использовать нейросети для увеличения продаж и автоматизации бизнеса. Практические кейсы и живые примеры.</p>
+            <button class="btn" onclick="openWebinar()">
+                🚀 Участвовать в вебинаре
+            </button>
+        </div>
+
+        <div class="content-block animate-in">
+            <span class="block-icon">📚</span>
+            <h2>Обучающие программы</h2>
+            <p>Комплексные курсы по ChatGPT, Midjourney, автоматизации процессов и созданию AI-помощников для вашего бизнеса.</p>
+            <button class="btn btn-secondary" onclick="openInstagram()">
+                📱 Следить в Instagram
+            </button>
+        </div>
+
+        <div class="content-block animate-in">
+            <span class="block-icon">⚡</span>
+            <h2>Персональные консультации</h2>
+            <p>Индивидуальный подход к внедрению ИИ в ваш бизнес. Анализ процессов и создание AI-стратегии.</p>
+            <button class="btn" onclick="sendConsultationRequest()">
+                💬 Записаться на консультацию
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>NeuroMarketing AI © 2025</p>
+            <p>Превращаем сложное в простое</p>
+        </div>
     </div>
 
     <script>
@@ -94,58 +313,103 @@
         let tg = window.Telegram.WebApp;
         
         // Настраиваем приложение
-        tg.expand(); // Расширяем на весь экран
-        tg.ready(); // Сообщаем, что приложение готово
+        tg.expand();
+        tg.ready();
         
-        // Показываем информацию о пользователе
-        function showUserInfo() {
+        // Показываем персональное приветствие
+        function showUserGreeting() {
             const user = tg.initDataUnsafe?.user;
-            const userInfoDiv = document.getElementById('userInfo');
+            const greetingDiv = document.getElementById('userGreeting');
             
             if (user) {
-                userInfoDiv.innerHTML = `
-                    <strong>👋 ${user.first_name}</strong><br>
-                    ${user.username ? '@' + user.username : 'Без username'}<br>
-                    ID: ${user.id}
-                `;
+                greetingDiv.innerHTML = `👋 Привет, ${user.first_name}! Готов изучать ИИ?`;
             } else {
-                userInfoDiv.innerHTML = '🤖 Демо-режим<br>Откройте через бота для полного функционала';
+                greetingDiv.innerHTML = '🤖 Добро пожаловать в мир искусственного интеллекта!';
             }
         }
         
-        // Отправляем данные боту
-        function sendMessage() {
+        // Открываем вебинар
+        function openWebinar() {
+            tg.openLink('https://neuromarketingai.site/neurohaker');
+            
+            // Отправляем данные боту о клике
             const data = {
-                action: 'greeting',
-                message: 'Привет из Mini App!',
-                timestamp: new Date().toLocaleString('ru-RU')
+                action: 'webinar_click',
+                user_id: tg.initDataUnsafe?.user?.id || 'unknown',
+                timestamp: new Date().toISOString()
+            };
+            tg.sendData(JSON.stringify(data));
+        }
+        
+        // Открываем Instagram
+        function openInstagram() {
+            tg.openLink('https://www.instagram.com/viktorrr_ai/');
+            
+            const data = {
+                action: 'instagram_click',
+                user_id: tg.initDataUnsafe?.user?.id || 'unknown',
+                timestamp: new Date().toISOString()
+            };
+            tg.sendData(JSON.stringify(data));
+        }
+        
+        // Запрос на консультацию
+        function sendConsultationRequest() {
+            const user = tg.initDataUnsafe?.user;
+            const message = user ? 
+                `Заявка на консультацию от ${user.first_name} (@${user.username || 'без username'})` :
+                'Заявка на консультацию из Mini App';
+            
+            const data = {
+                action: 'consultation_request',
+                message: message,
+                user_info: user || null,
+                timestamp: new Date().toISOString()
             };
             
             tg.sendData(JSON.stringify(data));
-            tg.showAlert('Сообщение отправлено боту!');
+            tg.showAlert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
         }
         
-        // Показываем уведомление
-        function showAlert() {
-            tg.showAlert('Это уведомление из Mini App! 🎉');
-        }
-        
-        // Открываем ссылку
-        function openLink() {
-            tg.openLink('https://github.com');
-        }
-        
-        // Инициализируем приложение
-        showUserInfo();
-        
-        // Настраиваем кнопки Telegram
+        // Настраиваем главную кнопку Telegram
         if (tg.platform !== 'unknown') {
-            tg.MainButton.setText('Главная кнопка');
+            tg.MainButton.setText('💬 Связаться с нами');
             tg.MainButton.show();
             tg.MainButton.onClick(function() {
-                tg.showAlert('Вы нажали главную кнопку!');
+                sendConsultationRequest();
             });
         }
+        
+        // Инициализация
+        showUserGreeting();
+        
+        // Добавляем анимации при скролле
+        const animateElements = document.querySelectorAll('.animate-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        });
+        
+        animateElements.forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Отслеживаем время на странице
+        const startTime = Date.now();
+        window.addEventListener('beforeunload', () => {
+            const timeSpent = Math.round((Date.now() - startTime) / 1000);
+            if (timeSpent > 5) { // Отправляем только если провел больше 5 секунд
+                const data = {
+                    action: 'time_tracking',
+                    time_spent_seconds: timeSpent,
+                    user_id: tg.initDataUnsafe?.user?.id || 'unknown'
+                };
+                tg.sendData(JSON.stringify(data));
+            }
+        });
     </script>
 </body>
 </html>
